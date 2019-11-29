@@ -5,7 +5,7 @@ import 'antd/dist/antd.css';
 
 
 function HelloWorld() {
-  const [hello, setHello] = useState("");
+  const [hello] = useState("");
   const [count, setCount] = useState(1);
   const [suername, setUuername] = useState("");
   // const [getFieldDecorator]= useState(props.form);

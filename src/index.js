@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
-import Hello from './hello/hello'
+import Audit from './audit/audit'
 import * as serviceWorker from './serviceWorker';
 
 // ReactDOM.render(<App name="啊旺"/>, document.getElementById('root'));
-ReactDOM.render(<Hello />, document.getElementById('root'));
+ReactDOM.render(<Audit />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
