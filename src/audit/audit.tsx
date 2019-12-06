@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 import { Card, Form, Button, Input, Select, DatePicker, Table } from 'antd';
-// import { Option } from Select;
 import 'antd/dist/antd.css';
 import { FormComponentProps } from "antd/lib/form";
+import {PaginationConfig} from "antd/lib/pagination";
 
 function Audit(props: FormComponentProps) {
   const { form } = props;
@@ -23,8 +23,67 @@ function Audit(props: FormComponentProps) {
       age: 42,
       address: '西湖区湖底公园1号',
     },
+    {
+      key: '3',
+      name: '胡彦斌',
+      age: 32,
+      address: '西湖区湖底公园1号',
+    },
+    {
+      key: '4',
+      name: '胡彦祖',
+      age: 42,
+      address: '西湖区湖底公园1号',
+    },
+    {
+      key: '5',
+      name: '胡彦斌',
+      age: 32,
+      address: '西湖区湖底公园1号',
+    },
+    {
+      key: '6',
+      name: '胡彦祖',
+      age: 42,
+      address: '西湖区湖底公园1号',
+    },
+    {
+      key: '7',
+      name: '胡彦斌',
+      age: 32,
+      address: '西湖区湖底公园1号',
+    },
+    {
+      key: '8',
+      name: '胡彦祖',
+      age: 42,
+      address: '西湖区湖底公园1号',
+    },
+    {
+      key: '9',
+      name: '胡彦斌',
+      age: 32,
+      address: '西湖区湖底公园1号',
+    },
+    {
+      key: '10',
+      name: '胡彦祖',
+      age: 42,
+      address: '西湖区湖底公园1号',
+    },
+    // {
+    //   key: '11',
+    //   name: '胡彦斌',
+    //   age: 32,
+    //   address: '西湖区湖底公园1号',
+    // },
+    // {
+    //   key: '12',
+    //   name: '胡彦祖',
+    //   age: 42,
+    //   address: '西湖区湖底公园1号',
+    // },
   ];
-  
   const columns = [
     {
       title: '姓名',
@@ -46,29 +105,49 @@ function Audit(props: FormComponentProps) {
     e.preventDefault();
     form.validateFieldsAndScroll((err, values) => {
       if (!err) {
+        setTotal(15);
         const value = {
+          ...values,
           'range-picker': [values['range-picker'][0].format('YYYY-MM-DD'), values['range-picker'][1].format('YYYY-MM-DD')],
         };
         console.log("Received values of form: ", value);
       }
     });
-  }
-  const [option] = useState(
-    [
-      {
-        value: '1',
-        name: '下拉框1'
-      },
-      {
-        value: '2',
-        name: '下拉框2'
-      }, 
-      {
-        value: '3',
-        name: '下拉框3'
-      },
-    ]
-  );
+  };
+  const option = [
+    {
+      value: '1',
+      name: '下拉框1'
+    },
+    {
+      value: '2',
+      name: '下拉框2'
+    }, 
+    {
+      value: '3',
+      name: '下拉框3'
+    },
+  ];
+  const [total, setTotal] = useState(12);
+  const [pageSize, setPageSize] = useState(10);
+  const [current, setCurrent] = useState(1);
+  const pagination:PaginationConfig = {
+    showSizeChanger: true,
+    showQuickJumper: false,
+    showTotal: total => `共${total}条`,
+    pageSize: pageSize,
+    current: current,
+    total: total,
+    onShowSizeChange: (current,pageSize) => changePageSize(pageSize,current),
+    onChange: (current) => changePage(current),
+  };
+  const changePage = (current:number) => {
+    setCurrent(current)
+  };
+  const changePageSize = (pageSize:number,current:number) => {
+    setPageSize(pageSize);
+    setCurrent(1)
+  };
   return (
     <div style={{marginLeft: '240px',backgroundColor: '#eff4f8',height: '937px',overflow: 'hidden'}}>
       <Card style={{width: '90%',margin: '50px auto',height: '88px'}}>
@@ -110,7 +189,9 @@ function Audit(props: FormComponentProps) {
           </Form.Item>
         </Form>
       </Card>
-      <Table style={{width: '90%',margin: '0 auto',backgroundColor: 'white'}} bordered={true} dataSource={dataSource} columns={columns} />;
+      <Card style={{width: '90%',margin: '50px auto'}}>
+        <Table pagination={pagination} size="middle" bordered={true} dataSource={dataSource} columns={columns} />
+      </Card>
     </div>
   );
 }
